@@ -17,13 +17,5 @@ public class Main {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-
-        //DataController asanas = new DataController();
-        //List<Asana> asanasList = asanas.getAsanas();
-        //asanasList.stream().map(e -> e.s).forEach(System.out::println);
-        //Asana[] m = mapper.readValue(Paths.get("src/main/resources/asanas.json").toFile(),Asana[].class);
-       // Arrays.stream(m).map(e -> e.e + e.s).forEach(System.out::println);
-       // Arrays.asList(m).stream().map(e -> e.s).forEach(System.out::println);
-
     }
 }

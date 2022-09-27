@@ -16,7 +16,7 @@ public class MyAmazingBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "Bodhi";
+        return Settings.BOT_NAME.toString();
     }
 
     @Override
