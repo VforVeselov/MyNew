@@ -16,12 +16,13 @@ public class MyAmazingBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return Settings.BOT_NAME.toString();
+        return Settings.botName;
     }
 
     @Override
     public String getBotToken() {
-        return "1591576699:AAF_E5hPn_BLQJ6K4WC0CnxSC8-3iGnjmSw";
+        return Settings.token;
+        //return "1591576699:AAF_E5hPn_BLQJ6K4WC0CnxSC8-3iGnjmSw";
     }
 
     @Override
