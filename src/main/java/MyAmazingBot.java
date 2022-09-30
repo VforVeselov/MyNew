@@ -4,6 +4,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.IOException;
@@ -35,13 +37,13 @@ public class MyAmazingBot extends TelegramLongPollingBot {
             if (update.getMessage().getText().equals("/memorize")) {
                 QuizClass quizClass = new QuizClass();
                 quizClass.sendQuestion(sendPhoto,dataController,update.getMessage().getChatId());
-            }
 
-            try {
-                execute(sendPhoto);
-                execute(message);
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
+                try {
+                    execute(sendPhoto);
+                    execute(message);
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
             }
         } else if (update.hasCallbackQuery()) {
 
@@ -58,8 +60,25 @@ public class MyAmazingBot extends TelegramLongPollingBot {
                     throw new RuntimeException(e);
                 }
 
+//                SendMessage more = new SendMessage();
+//                more.setChatId(update.getCallbackQuery().getMessage().getChatId());
+//                more.setText("More?");
+//                    InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+//                        List<InlineKeyboardButton> inlineKeyboardRow1 = new ArrayList<>();
+//                            InlineKeyboardButton yesButton = new InlineKeyboardButton();
+//                                    yesButton.setText("Да");
+//                                    yesButton.setCallbackData("y");
+//                            InlineKeyboardButton noButton = new InlineKeyboardButton();
+//                                    noButton.setText("Нет");
+//                                    noButton.setCallbackData("n");
+//                            inlineKeyboardRow1.add(yesButton);
+//                            inlineKeyboardRow1.add(noButton);
+//                        inlineKeyboardMarkup.setKeyboard(Arrays.asList(inlineKeyboardRow1));
+//                        more.setReplyMarkup(inlineKeyboardMarkup);
                 try {
+
                     Message response = execute(new_message);
+                    // удаляем к херам
                     this.deleteMessage(response, update, 1000);
 
                     Message info = execute(infoMessage);
@@ -67,6 +86,9 @@ public class MyAmazingBot extends TelegramLongPollingBot {
 
                     Message quizMessage = update.getCallbackQuery().getMessage();
                     deleteMessage(quizMessage, update, 7000);
+
+                    ///execute(more);
+
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }
@@ -83,6 +105,7 @@ public class MyAmazingBot extends TelegramLongPollingBot {
             }
         }
 
+
     }
 
     private void deleteMessage(Message response, Update update, int time) {
@@ -91,7 +114,7 @@ public class MyAmazingBot extends TelegramLongPollingBot {
                 Thread.sleep(time);
                 DeleteMessage del = new DeleteMessage();
                 del.setChatId(update.getCallbackQuery().getMessage().getChatId());
-                System.out.println(response.getMessageId());
+                //System.out.println(response.getMessageId());
                 del.setMessageId(response.getMessageId());
                 execute(del);
             } catch (InterruptedException | TelegramApiException e) {
