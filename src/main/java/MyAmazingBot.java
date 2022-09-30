@@ -25,7 +25,6 @@ public class MyAmazingBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
 
         DataController dataController = new DataController();
-        int asanaInfo = -1;
 
         if (update.hasMessage() && update.getMessage().hasText()) {
             // Set variables
@@ -33,12 +32,9 @@ public class MyAmazingBot extends TelegramLongPollingBot {
             SendPhoto sendPhoto = new SendPhoto();
             message.setChatId(update.getMessage().getChatId().toString());
 
-
-
             if (update.getMessage().getText().equals("/memorize")) {
                 QuizClass quizClass = new QuizClass();
-                asanaInfo = quizClass.sendQuestion(sendPhoto,dataController,update.getMessage().getChatId());
-                //asanaInfo = answer;
+                quizClass.sendQuestion(sendPhoto,dataController,update.getMessage().getChatId());
             }
 
             try {
@@ -52,10 +48,10 @@ public class MyAmazingBot extends TelegramLongPollingBot {
             if (!update.getCallbackQuery().getData().equals("-")) { // правильный ответ
                 SendMessage new_message = new SendMessage();
                 new_message.setChatId(update.getCallbackQuery().getMessage().getChatId());
-                new_message.setText(Settings.rightAnswer.get(new Random().nextInt(Settings.rightAnswer.size())));
+                new_message.setText(Settings.rightAnswer.get(new Random().nextInt(Settings.rightAnswer.size()))); // один из вариантов верного ответа
 
                 SendMessage infoMessage = new SendMessage();
-                infoMessage.setChatId(update.getCallbackQuery().getMessage().getChatId()); // один из вариантов верного ответа
+                infoMessage.setChatId(update.getCallbackQuery().getMessage().getChatId());
                 try {
                     infoMessage.setText(dataController.getAsaaInfo(Integer.valueOf(update.getCallbackQuery().getData())));
                 } catch (IOException e) {
@@ -68,6 +64,9 @@ public class MyAmazingBot extends TelegramLongPollingBot {
 
                     Message info = execute(infoMessage);
                     this.deleteMessage(info, update, 7000);
+
+                    Message quizMessage = update.getCallbackQuery().getMessage();
+                    deleteMessage(quizMessage, update, 7000);
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }
