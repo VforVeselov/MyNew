@@ -1,16 +1,13 @@
-import org.glassfish.grizzly.streams.StreamInput;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
-import org.telegram.telegrambots.meta.api.objects.InputFile;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class MyAmazingBot extends TelegramLongPollingBot {
 
@@ -22,14 +19,13 @@ public class MyAmazingBot extends TelegramLongPollingBot {
     @Override
     public String getBotToken() {
         return Settings.token;
-        //return "1591576699:AAF_E5hPn_BLQJ6K4WC0CnxSC8-3iGnjmSw";
     }
 
     @Override
     public void onUpdateReceived(Update update) {
 
         DataController dataController = new DataController();
-
+        int asanaInfo = -1;
 
         if (update.hasMessage() && update.getMessage().hasText()) {
             // Set variables
@@ -37,51 +33,73 @@ public class MyAmazingBot extends TelegramLongPollingBot {
             SendPhoto sendPhoto = new SendPhoto();
             message.setChatId(update.getMessage().getChatId().toString());
 
+
+
             if (update.getMessage().getText().equals("/memorize")) {
                 QuizClass quizClass = new QuizClass();
-                quizClass.sendQuestion(sendPhoto,dataController,update.getMessage().getChatId());
-
+                asanaInfo = quizClass.sendQuestion(sendPhoto,dataController,update.getMessage().getChatId());
+                //asanaInfo = answer;
             }
+
             try {
-                //execute(message);
                 execute(sendPhoto);
+                execute(message);
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
         } else if (update.hasCallbackQuery()) {
 
-            if (!update.getCallbackQuery().getData().equals("-")) { //
+            if (!update.getCallbackQuery().getData().equals("-")) { // правильный ответ
                 SendMessage new_message = new SendMessage();
-                System.out.println("new message");
                 new_message.setChatId(update.getCallbackQuery().getMessage().getChatId());
-                new_message.setText("Верно!");
+                new_message.setText(Settings.rightAnswer.get(new Random().nextInt(Settings.rightAnswer.size())));
+
+                SendMessage infoMessage = new SendMessage();
+                infoMessage.setChatId(update.getCallbackQuery().getMessage().getChatId()); // один из вариантов верного ответа
                 try {
-                    execute(new_message);
+                    infoMessage.setText(dataController.getAsaaInfo(Integer.valueOf(update.getCallbackQuery().getData())));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                try {
+                    Message response = execute(new_message);
+                    this.deleteMessage(response, update, 1000);
+
+                    Message info = execute(infoMessage);
+                    this.deleteMessage(info, update, 7000);
                 } catch (TelegramApiException e) {
-                    System.out.println(e.toString());
                     e.printStackTrace();
                 }
             } else {
                 SendMessage new_message = new SendMessage();
                 new_message.setChatId(update.getCallbackQuery().getMessage().getChatId());
-                new_message.setText("Лошара!");
+                new_message.setText(Settings.errorMessage);
                 try {
-                    execute(new_message);
+                    Message response = execute(new_message);
+                    this.deleteMessage(response, update, 1000);
                 } catch (TelegramApiException e) {
-                    System.out.println(e.toString());
                     e.printStackTrace();
                 }
             }
-
-            System.out.println(update.getCallbackQuery().getData());
-//            try {
-//                execute(message);
-//            } catch (TelegramApiException e) {
-//                e.printStackTrace();
-//            }
-            //System.out.println(update.getCallbackQuery().getData() + " 1");
-            //execute(message);
         }
 
+    }
+
+    private void deleteMessage(Message response, Update update, int time) {
+        Thread run = new Thread(() -> {
+            try {
+                Thread.sleep(time);
+                DeleteMessage del = new DeleteMessage();
+                del.setChatId(update.getCallbackQuery().getMessage().getChatId());
+                System.out.println(response.getMessageId());
+                del.setMessageId(response.getMessageId());
+                execute(del);
+            } catch (InterruptedException | TelegramApiException e) {
+                throw new RuntimeException(e);
+            }
+
+        });
+        run.start();
     }
 }

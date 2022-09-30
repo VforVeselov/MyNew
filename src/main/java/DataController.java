@@ -1,5 +1,4 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javassist.bytecode.Descriptor;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -9,8 +8,7 @@ public class DataController {
 
     public List<Asana> getAsanas() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        List<Asana> asanaList = Arrays.asList(mapper.readValue(Paths.get("src/main/resources/asanas.json").toFile(), Asana[].class));
-        return asanaList;
+        return Arrays.asList(mapper.readValue(Paths.get("src/main/resources/asanas.json").toFile(), Asana[].class));
     }
 
     // <String(Img), Iteger(ID), Map<id, String(asana name)>>
@@ -23,7 +21,11 @@ public class DataController {
             asanas.put(i, asanaList.get(new Random().nextInt(asanaList.size())));
         }
 
-        Map<Integer, Asana> result = asanas;
-        return result;
+        return asanas;
+    }
+
+    public String getAsaaInfo(Integer id) throws IOException {
+        System.out.println(id);
+        return getAsanas().stream().filter( c->c.id == id).findFirst().map(e->e.desc).get();
     }
 }
