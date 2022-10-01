@@ -2,12 +2,14 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.*;
 
@@ -35,6 +37,7 @@ public class MyAmazingBot extends TelegramLongPollingBot {
             message.setChatId(update.getMessage().getChatId().toString());
 
             if (update.getMessage().getText().equals("/memorize")) {
+                    System.out.println("memorize");
                 QuizClass quizClass = new QuizClass();
                 quizClass.sendQuestion(sendPhoto,dataController,update.getMessage().getChatId());
 
@@ -45,6 +48,18 @@ public class MyAmazingBot extends TelegramLongPollingBot {
                     e.printStackTrace();
                 }
             }
+
+            if (update.getMessage().getText().equals("practice")) {
+                    System.out.println("practice");
+                PracticeController practice = new PracticeController();
+                try {
+                    LinkedList<Asana> practiceList = practice.getPractice(new Integer[]{1, 2, 4, 2});
+                    startPractice(practiceList,update,5000);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
         } else if (update.hasCallbackQuery()) {
 
             if (!update.getCallbackQuery().getData().equals("-")) { // правильный ответ
@@ -117,6 +132,31 @@ public class MyAmazingBot extends TelegramLongPollingBot {
                 //System.out.println(response.getMessageId());
                 del.setMessageId(response.getMessageId());
                 execute(del);
+            } catch (InterruptedException | TelegramApiException e) {
+                throw new RuntimeException(e);
+            }
+
+        });
+        run.start();
+    }
+
+    private void startPractice(LinkedList<Asana> asanaLinkedList,Update update, int time) {
+        Thread run = new Thread(() -> {
+            try {
+                SendMessage practiceMessage = new SendMessage();
+                SendPhoto practicePhoto = new SendPhoto();
+
+                practiceMessage.setChatId(update.getMessage().getChatId());
+                practicePhoto.setChatId(update.getMessage().getChatId());
+
+                for (Asana asana: asanaLinkedList) {
+                    practiceMessage.setText(asana.sanskrit);
+                    practicePhoto.setPhoto(new InputFile(asana.img));
+                    execute(practicePhoto);
+                    execute(practiceMessage);
+                    Thread.sleep(time);
+                    //System.out.println(asana.sanskrit);
+                }
             } catch (InterruptedException | TelegramApiException e) {
                 throw new RuntimeException(e);
             }
