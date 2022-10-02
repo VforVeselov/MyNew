@@ -11,7 +11,7 @@ public class PracticeController {
     public LinkedList<Asana> getPractice(Integer[] asanasID) throws IOException {
         DataController d = new DataController();
         List<Asana> asanas = d.getAsanas();
-        //охуеть. это было прямо взрывом мозга ) но это не то)
+        //охуеть. это было прямо взрыв мозга ) но это не то что нужно) ахахах
         //asanas.stream().filter(e -> Arrays.stream(asanasID).anyMatch(k -> k.equals(e.id))).collect(Collectors.toList()).stream().map(e->e.sanskrit).forEach(System.out::println);
         LinkedList<Asana> pracriceList= new LinkedList<Asana>();
         for (Integer aId: asanasID) {
@@ -34,5 +34,10 @@ public class PracticeController {
 ////            }
 //        });
 //        run.start();
+    }
+    //TODO сделать меню для выбора практики
+    // меню должно содержать много вариантов практик и настраиваться через файл, чтобы каждый раз не править код
+    public void practiceMenu() {
+
     }
 }

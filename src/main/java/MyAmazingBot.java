@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class MyAmazingBot extends TelegramLongPollingBot {
+    private DataController dataController = new DataController();
 
     @Override
     public String getBotUsername() {
@@ -27,8 +28,6 @@ public class MyAmazingBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-
-        DataController dataController = new DataController();
 
         if (update.hasMessage() && update.getMessage().hasText()) {
             // Set variables
@@ -49,12 +48,12 @@ public class MyAmazingBot extends TelegramLongPollingBot {
                 }
             }
 
-            if (update.getMessage().getText().equals("practice")) {
+            if (update.getMessage().getText().equals("/practice")) {
                     System.out.println("practice");
                 PracticeController practice = new PracticeController();
                 try {
-                    LinkedList<Asana> practiceList = practice.getPractice(new Integer[]{1, 2, 4, 2});
-                    startPractice(practiceList,update,5000);
+                    LinkedList<Asana> practiceList = practice.getPractice(new Integer[]{3, 6, 7, 9,10,9,7,6,3});
+                    startPractice(practiceList,update,7000);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
