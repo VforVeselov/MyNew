@@ -5,6 +5,7 @@ target/
 
 src/main/java/Settings.java
 
+
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
