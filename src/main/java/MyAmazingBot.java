@@ -12,6 +12,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.awt.*;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 public class MyAmazingBot extends TelegramLongPollingBot {
     private DataController dataController = new DataController();
@@ -62,6 +63,23 @@ public class MyAmazingBot extends TelegramLongPollingBot {
         } else if (update.hasCallbackQuery()) {
 
             if (!update.getCallbackQuery().getData().equals("-")) { // правильный ответ
+                if (update.getCallbackQuery().getData().equals("yestomorequiz")) {
+                    System.out.println("ssssss");
+                    SendMessage message = new SendMessage();
+                    SendPhoto sendPhoto = new SendPhoto();
+                    message.setChatId(update.getCallbackQuery().getMessage().getChatId().toString());
+
+                    QuizClass quizClass = new QuizClass();
+                    quizClass.sendQuestion(sendPhoto,dataController,update.getCallbackQuery().getMessage().getChatId());
+
+                    try {
+                        execute(sendPhoto);
+                        execute(message);
+                    } catch (TelegramApiException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 SendMessage new_message = new SendMessage();
                 new_message.setChatId(update.getCallbackQuery().getMessage().getChatId());
                 new_message.setText(Settings.rightAnswer.get(new Random().nextInt(Settings.rightAnswer.size()))); // один из вариантов верного ответа
@@ -70,26 +88,6 @@ public class MyAmazingBot extends TelegramLongPollingBot {
                 infoMessage.setChatId(update.getCallbackQuery().getMessage().getChatId());
                 try {
                     infoMessage.setText(dataController.getAsaaInfo(Integer.valueOf(update.getCallbackQuery().getData())));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-
-//                SendMessage more = new SendMessage();
-//                more.setChatId(update.getCallbackQuery().getMessage().getChatId());
-//                more.setText("More?");
-//                    InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-//                        List<InlineKeyboardButton> inlineKeyboardRow1 = new ArrayList<>();
-//                            InlineKeyboardButton yesButton = new InlineKeyboardButton();
-//                                    yesButton.setText("Да");
-//                                    yesButton.setCallbackData("y");
-//                            InlineKeyboardButton noButton = new InlineKeyboardButton();
-//                                    noButton.setText("Нет");
-//                                    noButton.setCallbackData("n");
-//                            inlineKeyboardRow1.add(yesButton);
-//                            inlineKeyboardRow1.add(noButton);
-//                        inlineKeyboardMarkup.setKeyboard(Arrays.asList(inlineKeyboardRow1));
-//                        more.setReplyMarkup(inlineKeyboardMarkup);
-                try {
 
                     Message response = execute(new_message);
                     // удаляем к херам
@@ -100,13 +98,34 @@ public class MyAmazingBot extends TelegramLongPollingBot {
 
                     Message quizMessage = update.getCallbackQuery().getMessage();
                     deleteMessage(quizMessage, update, 7000);
+                    // что-то не работает ((((
+                    deleteMessage(
+                            execute(
+                                    SendMessage.builder()
+                                    .text("Еще?")
+                                    .chatId(update.getCallbackQuery().getMessage().getChatId())
+                                            .replyMarkup(InlineKeyboardMarkup.builder()
+                                                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                                                            .text("Yes")
+                                                            .callbackData("yestomorequiz")
+                                                            .build()
+                                                    )).build()
+                                            )
+                                    .build()
+                            ),
+                            update, 7000);
 
                     ///execute(more);
 
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-            } else {
+
+
+            }  else {
+                System.out.println("YEEEEEES1");
                 SendMessage new_message = new SendMessage();
                 new_message.setChatId(update.getCallbackQuery().getMessage().getChatId());
                 new_message.setText(Settings.errorMessage);
@@ -117,6 +136,7 @@ public class MyAmazingBot extends TelegramLongPollingBot {
                     e.printStackTrace();
                 }
             }
+
         }
 
 

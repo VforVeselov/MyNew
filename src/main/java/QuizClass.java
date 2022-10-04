@@ -46,6 +46,7 @@ public class QuizClass {
                 }
 
             }
+
             List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
             rowList.add(inlineKeyboardRow1);
             rowList.add(inlineKeyboardRow2);
