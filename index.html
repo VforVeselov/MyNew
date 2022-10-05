@@ -9,7 +9,7 @@
     <style>
   #sortable1, #sortable2 {
     border: 1px solid #eee;
-    width: 142px;
+    width: 552px;
     min-height: 20px;
     list-style-type: none;
     margin: 0;
@@ -21,53 +21,61 @@
     margin: 0 5px 5px 5px;
     padding: 5px;
     font-size: 1.2em;
-    width: 120px;
+    width: 520px;
+  }
+  #sortable2 {
+    padding-top: 30px;
   }
   </style>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
 
-
       $.getJSON( "https://raw.githubusercontent.com/VforVeselov/MyNew/master/src/main/resources/asanas.json", function( data ) {
         var items = [];
         $.each( data, function( key, val ) {
-        items.push( "<li class=\"ui-state-highlight\" id='" + val.id + "'>" + val.sanskrit + "</li>" );
+        items.push( "<li class=\"ui-state-highlight\" id='" + val.id + "'><img width=\"140px\"src=\""+ val.img +"\">" + val.sanskrit + "</li>" );
         //console.log(key + " -> " + val.english);
             $.each( val, function( key1, val1 ) {
-                //items.push( "<li id='" + key + "'>" + val + "</li>" );
+                //items.push( "<li id='" + key + "'>" +  + "</li>" );
                 //
                 //console.log(key1 + " -> " + val1);
             });
 
         });
+        //console.log(items);
+        $('#sortable1').append(items);
 
-      $( "<ul id=\"sortable1\" class=\"connectedSortable\"/>", {
-        "class": "my-new-list",
-        html: items.join( "" )
-      }).appendTo( "body" );
-      });
-
-      $( function() {
-        $( "#sortable1, #sortable2" ).sortable({
+        $("#sortable1, #sortable2" ).sortable({
           connectWith: ".connectedSortable"
         }).disableSelection();
-      } );
+
+        $('#sortable1 li').each(function( key, val ) {
+            //console.log(key+" -> "+ val.id);
+        });
+        //TODO доделать вывод айдишников.
+        $('#sortable2').on('DOMSubtreeModified', function(event) {
+            var itms = [];
+            $('#sortable2 li').each(function( key, val ) {
+                itms.push(val.id);
+                console.log(key+" -> "+ val.id);
+            });
+        });
+
+      });
   </script>
 </head>
 <body>
 
-<!--<ul id="sortable1" class="connectedSortable">-->
+<ul id="sortable1" class="connectedSortable">
 
-<!--</ul>-->
+</ul>
 
 <ul id="sortable2" class="connectedSortable">
-    <li class="ui-state-highlight">Item 1</li>
-    <li class="ui-state-highlight">Item 2</li>
-    <li class="ui-state-highlight">Item 3</li>
-    <li class="ui-state-highlight">Item 4</li>
-    <li class="ui-state-highlight">Item 5</li>
+
 </ul>
+
+<div id="result"> <div>
 
 
 </body>
