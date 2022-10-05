@@ -28,7 +28,7 @@ public class DataController {
         return asanas;
     }
 
-    public String getAsaaInfo(Integer id) throws IOException {
+    public String getAsaaInfo(int id) throws IOException {
         return getAsanas().stream().filter( c->c.id == id).findFirst().map(e->e.desc).get();
     }
 }

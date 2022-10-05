@@ -1,3 +1,4 @@
+import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
@@ -9,13 +10,14 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
+@Slf4j
 public class MyAmazingBot extends TelegramLongPollingBot {
-    private DataController dataController = new DataController();
+    private final DataController dataController = new DataController();
+    private Random random = new Random();
 
     @Override
     public String getBotUsername() {
@@ -35,6 +37,14 @@ public class MyAmazingBot extends TelegramLongPollingBot {
             SendMessage message = new SendMessage();
             SendPhoto sendPhoto = new SendPhoto();
             message.setChatId(update.getMessage().getChatId().toString());
+            if (update.getMessage().getText().equals("/start")) {
+                message.setText("Привет! \n Этот бот поможет тебе выучить асаны в форме теста \n жмякни /memorize и поехали!");
+                try {
+                    execute(message);
+                } catch (TelegramApiException e) {
+                    throw new RuntimeException(e);
+                }
+            }
 
             if (update.getMessage().getText().equals("/memorize")) {
                     System.out.println("memorize");
@@ -43,7 +53,7 @@ public class MyAmazingBot extends TelegramLongPollingBot {
 
                 try {
                     execute(sendPhoto);
-                    execute(message);
+                    //execute(message);
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }
@@ -53,7 +63,7 @@ public class MyAmazingBot extends TelegramLongPollingBot {
                     System.out.println("practice");
                 PracticeController practice = new PracticeController();
                 try {
-                    LinkedList<Asana> practiceList = practice.getPractice(new Integer[]{3, 6, 7, 9,10,9,7,6,3});
+                    LinkedList<Asana> practiceList = practice.getPractice(new Integer[]{3, 12, 6, 13, 14, 11, 9, 15, 14, 11, 9, 15, 14, 11, 9, 13, 6, 12, 3});
                     startPractice(practiceList,update,7000);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -64,7 +74,8 @@ public class MyAmazingBot extends TelegramLongPollingBot {
 
             if (!update.getCallbackQuery().getData().equals("-")) { // правильный ответ
                 if (update.getCallbackQuery().getData().equals("yestomorequiz")) {
-                    System.out.println("ssssss");
+                    log.trace("aaa");
+                    //System.out.println("ssssss");
                     SendMessage message = new SendMessage();
                     SendPhoto sendPhoto = new SendPhoto();
                     message.setChatId(update.getCallbackQuery().getMessage().getChatId().toString());
@@ -74,22 +85,29 @@ public class MyAmazingBot extends TelegramLongPollingBot {
 
                     try {
                         execute(sendPhoto);
-                        execute(message);
+                        //execute(message);
                     } catch (TelegramApiException e) {
                         e.printStackTrace();
                     }
                 }
 
-                SendMessage new_message = new SendMessage();
-                new_message.setChatId(update.getCallbackQuery().getMessage().getChatId());
-                new_message.setText(Settings.rightAnswer.get(new Random().nextInt(Settings.rightAnswer.size()))); // один из вариантов верного ответа
+                SendMessage newMessage = new SendMessage();
+                newMessage.setChatId(update.getCallbackQuery().getMessage().getChatId());
+                newMessage.setText(Settings.rightAnswer.get(random.nextInt(Settings.rightAnswer.size()))); // один из вариантов верного ответа
 
                 SendMessage infoMessage = new SendMessage();
                 infoMessage.setChatId(update.getCallbackQuery().getMessage().getChatId());
                 try {
-                    infoMessage.setText(dataController.getAsaaInfo(Integer.valueOf(update.getCallbackQuery().getData())));
+                    Integer asanaId = null;
+                        try {
+                            asanaId = Integer.parseInt(update.getCallbackQuery().getData());
+                            log.trace(String.valueOf(asanaId));
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                        }
+                    infoMessage.setText(dataController.getAsaaInfo(asanaId));
 
-                    Message response = execute(new_message);
+                    Message response = execute(newMessage);
                     // удаляем к херам
                     this.deleteMessage(response, update, 1000);
 
@@ -115,8 +133,6 @@ public class MyAmazingBot extends TelegramLongPollingBot {
                             ),
                             update, 7000);
 
-                    ///execute(more);
-
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -125,12 +141,12 @@ public class MyAmazingBot extends TelegramLongPollingBot {
 
 
             }  else {
-                System.out.println("YEEEEEES1");
-                SendMessage new_message = new SendMessage();
-                new_message.setChatId(update.getCallbackQuery().getMessage().getChatId());
-                new_message.setText(Settings.errorMessage);
+                log.trace("ответ неверный");
+                SendMessage newMessage = new SendMessage();
+                newMessage.setChatId(update.getCallbackQuery().getMessage().getChatId());
+                newMessage.setText(Settings.errorMessage);
                 try {
-                    Message response = execute(new_message);
+                    Message response = execute(newMessage);
                     this.deleteMessage(response, update, 1000);
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
@@ -148,7 +164,6 @@ public class MyAmazingBot extends TelegramLongPollingBot {
                 Thread.sleep(time);
                 DeleteMessage del = new DeleteMessage();
                 del.setChatId(update.getCallbackQuery().getMessage().getChatId());
-                //System.out.println(response.getMessageId());
                 del.setMessageId(response.getMessageId());
                 execute(del);
             } catch (InterruptedException | TelegramApiException e) {
@@ -174,7 +189,6 @@ public class MyAmazingBot extends TelegramLongPollingBot {
                     execute(practicePhoto);
                     execute(practiceMessage);
                     Thread.sleep(time);
-                    //System.out.println(asana.sanskrit);
                 }
             } catch (InterruptedException | TelegramApiException e) {
                 throw new RuntimeException(e);
