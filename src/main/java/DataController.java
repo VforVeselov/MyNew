@@ -15,16 +15,20 @@ public class DataController {
     public Map<Integer, Asana> getAsanasForQuiz() throws IOException {
 
         List<Asana> asanaList = this.getAsanas();
-        Map<Integer, Asana> asanas = new HashMap<>();// новый лист с 4 значениями
-
-        for (int i = 0; i < 4; i++) {
-            asanas.put(i, asanaList.get(new Random().nextInt(asanaList.size())));
+        Map<Integer, Asana> asanas = new HashMap<>();// новый лист с 4  уникальными значениями
+        int i = 0;
+        while (i < 4) {
+            Asana a = asanaList.get(new Random().nextInt(asanaList.size()));
+            if (!asanas.containsValue(a)) {
+                asanas.put(i, a);
+                i++;
+            }
         }
 
         return asanas;
     }
 
-    public String getAsaaInfo(Integer id) throws IOException {
+    public String getAsaaInfo(int id) throws IOException {
         return getAsanas().stream().filter( c->c.id == id).findFirst().map(e->e.desc).get();
     }
 }
