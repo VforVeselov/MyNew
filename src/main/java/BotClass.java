@@ -1,4 +1,5 @@
 import lombok.extern.slf4j.Slf4j;
+import menu.Menu;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
@@ -64,11 +65,19 @@ public class BotClass  extends TelegramLongPollingBot {
             // practice
             if (update.getMessage().getText().equals("/practice")) {
                 log.trace("User {} запустил practice",update.getMessage().getFrom().getUserName());
-                PracticeController practice = new PracticeController();
+//                PracticeController practice = new PracticeController();
+//                try {
+//                    LinkedList<Asana> practiceList = practice.getPractice(new Integer[]{3, 12, 6, 13, 14, 11, 9, 15, 14, 11, 9, 15, 14, 11, 9, 13, 6, 12, 3});
+//                    startPractice(practiceList,update,7000);
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+                // TODO чота все поломалось )
+                message.setText("Выбери практику");
                 try {
-                    LinkedList<Asana> practiceList = practice.getPractice(new Integer[]{3, 12, 6, 13, 14, 11, 9, 15, 14, 11, 9, 15, 14, 11, 9, 13, 6, 12, 3});
-                    startPractice(practiceList,update,7000);
-                } catch (IOException e) {
+                    message.setReplyMarkup(new Menu().menuBuilder());
+                    execute(message);
+                } catch (IOException | TelegramApiException e) {
                     throw new RuntimeException(e);
                 }
             }
