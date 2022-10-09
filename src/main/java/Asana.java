@@ -1,3 +1,6 @@
+import lombok.ToString;
+
+@ToString
 public class Asana {
     public String sanskrit;
     public String english;

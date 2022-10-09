@@ -1,19 +1,16 @@
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
-import org.telegram.telegrambots.meta.api.objects.InputFile;
 
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PracticeController {
 
-    public LinkedList<Asana> getPractice(Integer[] asanasID) throws IOException {
+    public List<Asana> getPractice(Integer[] asanasID) throws IOException {
         DataController d = new DataController();
         List<Asana> asanas = d.getAsanas();
         //охуеть. это было прямо взрыв мозга ) но это не то что нужно) ахахах
         //asanas.stream().filter(e -> Arrays.stream(asanasID).anyMatch(k -> k.equals(e.id))).collect(Collectors.toList()).stream().map(e->e.sanskrit).forEach(System.out::println);
-        LinkedList<Asana> pracriceList= new LinkedList<Asana>();
+        List<Asana> pracriceList= new ArrayList<Asana>();
         for (Integer aId: asanasID) {
             pracriceList.add(asanas.stream().filter(e -> e.id==aId).findFirst().get());
         }

@@ -11,10 +11,12 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.beans.XMLEncoder;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class BotClass  extends TelegramLongPollingBot {
@@ -65,6 +67,8 @@ public class BotClass  extends TelegramLongPollingBot {
             // practice
             if (update.getMessage().getText().equals("/practice")) {
                 log.trace("User {} запустил practice",update.getMessage().getFrom().getUserName());
+                //dataController.getAsaaInfo()
+                //dataController.getPractice()
 //                PracticeController practice = new PracticeController();
 //                try {
 //                    LinkedList<Asana> practiceList = practice.getPractice(new Integer[]{3, 12, 6, 13, 14, 11, 9, 15, 14, 11, 9, 15, 14, 11, 9, 13, 6, 12, 3});
@@ -153,21 +157,36 @@ public class BotClass  extends TelegramLongPollingBot {
                     throw new RuntimeException(e);
                 }
             }
+
+            if (update.getCallbackQuery().getData().startsWith("practice-")) {
+                log.info("Запущена практика номер: {}", update.getCallbackQuery().getData());
+                int practiceId = Integer.parseInt(update.getCallbackQuery().getData().substring(9));
+                Menu menu = new Menu();
+                try {
+                    List<Asana> practiceList = dataController.getPractice(menu.getPracticeById(practiceId).asanas);
+                    startPractice(practiceList, update.getCallbackQuery().getMessage().getChatId(), 3000);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
         }
 
 
     }
 
-    private void startPractice(LinkedList<Asana> asanaLinkedList,Update update, int time) {
+    private void startPractice(List<Asana> asanaList,Long chatId, int time) {
         Thread run = new Thread(() -> {
             try {
+                log.trace("Программа {} ", asanaList.stream().map(e -> e.id).collect(Collectors.toList()).toString());
                 SendMessage practiceMessage = new SendMessage();
                 SendPhoto practicePhoto = new SendPhoto();
 
-                practiceMessage.setChatId(update.getMessage().getChatId());
-                practicePhoto.setChatId(update.getMessage().getChatId());
 
-                for (Asana asana: asanaLinkedList) {
+                practiceMessage.setChatId(chatId);
+                practicePhoto.setChatId(chatId);
+
+                for (Asana asana: asanaList) {
                     practiceMessage.setText(asana.sanskrit);
                     practicePhoto.setPhoto(new InputFile(asana.img));
                     execute(practicePhoto);

@@ -11,11 +11,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Menu {
+    private ObjectMapper mapper = new ObjectMapper();
 
     public InlineKeyboardMarkup menuBuilder() throws IOException {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
 
-        List<MenuPracticeItems> items = getPracticesFromJson();
+        List<MenuPracticeItem> items = getPracticesFromJson();
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
 
         for (int i = 0; i < items.size(); i++) {
@@ -23,18 +24,18 @@ public class Menu {
                 rowList.add(List.of(
                         InlineKeyboardButton.builder()
                                 .text(items.get(i).name)
-                                .callbackData(items.get(i).name)
+                                .callbackData("practice-"+items.get(i).id)
                                 .build(),
                         InlineKeyboardButton.builder()
                                 .text(items.get(i+1).name)
-                                .callbackData(items.get(i+1).name)
+                                .callbackData("practice-"+items.get(i+1).id)
                                 .build()
                 ));
             } else {
                 rowList.add(List.of(
                         InlineKeyboardButton.builder()
                                 .text(items.get(i).name)
-                                .callbackData(items.get(i).name)
+                                .callbackData("practice-"+items.get(i).id)
                                 .build()
                 ));
             }
@@ -44,8 +45,11 @@ public class Menu {
         return inlineKeyboardMarkup;
     }
 
-    public List<MenuPracticeItems> getPracticesFromJson() throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        return Arrays.asList(mapper.readValue(Paths.get("src/main/resources/practices.json").toFile(), MenuPracticeItems[].class));
+    public List<MenuPracticeItem> getPracticesFromJson() throws IOException {
+        return Arrays.asList(mapper.readValue(Paths.get("src/main/resources/practices.json").toFile(), MenuPracticeItem[].class));
+    }
+
+    public MenuPracticeItem getPracticeById(int id) throws IOException {
+        return Arrays.stream(mapper.readValue(Paths.get("src/main/resources/practices.json").toFile(), MenuPracticeItem[].class)).filter(e->e.id == id).findFirst().get();
     }
 }

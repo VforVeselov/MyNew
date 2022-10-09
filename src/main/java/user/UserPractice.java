@@ -5,7 +5,7 @@ package user;
  *
  */
 public class UserPractice {
-    private int userId;
-    private String name;
-    private Integer[] practice;
+    public int userId;
+    public String name;
+    public Integer[] practice;
 }
