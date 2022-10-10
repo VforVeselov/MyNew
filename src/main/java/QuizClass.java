@@ -24,7 +24,6 @@ public class QuizClass {
             List<InlineKeyboardButton> inlineKeyboardRow2 = new ArrayList<>();
 
             int rightAnswer = new Random().nextInt(4);
-            System.out.println(" -- Правильный id - " + rightAnswer);
             String image = null;
             Integer trueAnswer = null;
 
@@ -33,9 +32,7 @@ public class QuizClass {
                 inlineKeyboardButton.setText(asanaMap.get(i).sanskrit);
                 if (i == rightAnswer) {
                     image = asanaMap.get(i).img;
-                    System.out.println(" id of asana - " + asanaMap.get(i).id);
                     trueAnswer = asanaMap.get(i).id;
-                    //inlineKeyboardButton.setCallbackData(String.valueOf(asanaMap.get(i).id));
                     inlineKeyboardButton.setCallbackData(String.valueOf("ra"+asanaMap.get(i).id));
                 } else {
                     inlineKeyboardButton.setCallbackData("-");

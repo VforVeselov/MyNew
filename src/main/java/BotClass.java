@@ -13,9 +13,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.beans.XMLEncoder;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -25,6 +23,7 @@ public class BotClass  extends TelegramLongPollingBot {
     private Random random = new Random();
     private SendMessage message = new SendMessage();
     private SendPhoto sendPhoto = new SendPhoto();
+    private Map<String, Long> userThreads = new HashMap<>();
 
 
     @Override
@@ -76,6 +75,10 @@ public class BotClass  extends TelegramLongPollingBot {
                     throw new RuntimeException(e);
                 }
             }
+            //stop
+            if (update.getMessage().getText().equals("/stop")) {
+                stopPractice(update.getMessage().getFrom().getUserName());
+            }
 
         }
         // Отлавливаем коллбеки из клаиауры
@@ -93,7 +96,6 @@ public class BotClass  extends TelegramLongPollingBot {
             }
             // если НЕправильный ответ
             if (update.getCallbackQuery().getData().equals("-")) {
-                log.trace("ответ неверный");
                 SendMessage newMessage = new SendMessage();
                 newMessage.setChatId(update.getCallbackQuery().getMessage().getChatId());
                 newMessage.setText(Settings.errorMessage);
@@ -155,7 +157,7 @@ public class BotClass  extends TelegramLongPollingBot {
                 Menu menu = new Menu();
                 try {
                     List<Asana> practiceList = dataController.getPractice(menu.getPracticeById(practiceId).asanas);
-                    startPractice(practiceList, update.getCallbackQuery().getMessage().getChatId(), 3000);
+                    startPractice(practiceList, update.getCallbackQuery().getMessage().getChatId(), update.getCallbackQuery().getFrom().getUserName(),3000);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -166,7 +168,7 @@ public class BotClass  extends TelegramLongPollingBot {
 
     }
 
-    private void startPractice(List<Asana> asanaList,Long chatId, int time) {
+    private void startPractice(List<Asana> asanaList,Long chatId, String tgUser, int time) {
         Thread run = new Thread(() -> {
             try {
                 log.trace("Программа {} ", asanaList.stream().map(e -> e.id).collect(Collectors.toList()).toString());
@@ -190,11 +192,28 @@ public class BotClass  extends TelegramLongPollingBot {
 
         });
         run.start();
+        userThreads.put(tgUser, run.getId());
         log.trace("запущен тред {}",run.getId());
     }
     //TODO STOP ALL PRACTICES
-    //создать метод, который по айди треба имени пользователя будет останавливать требуемый тред
+    //создать метод, который по айди треда имени пользователя будет останавливать требуемый тред
+    private void stopPractice(String tgUser) {
+        log.trace(userThreads.toString());
+        if (userThreads.containsKey(tgUser)) {
+            Set<Thread> setOfThread = Thread.getAllStackTraces().keySet();
 
+            //Iterate over set to find yours
+            for (Thread thread : setOfThread) {
+                if (thread.getId() == userThreads.get(tgUser)) {
+                    thread.interrupt();
+                    log.trace("Поток остановлен id {}",thread.getId());
+                }
+            }
+        }
+
+        //System.out.println(Thread.getAllStackTraces().keySet().stream().map(e->e.getId()).collect(Collectors.toList()).toString());
+
+    }
     private void deleteMessage(Message response, Update update, int time) {
         Thread run = new Thread(() -> {
             try {

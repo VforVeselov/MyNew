@@ -29,6 +29,7 @@
     padding: 20px 5px 20px 5px;
     border: 2px;
     border-color: black;
+    height: 75%;
   } 
   .col {
     border: 120px;
@@ -44,7 +45,7 @@
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
 
-      $.getJSON( "https://raw.githubusercontent.com/VforVeselov/MyNew/master/src/main/resources/asanas.json", function( data ) {
+      $.getJSON( "https://raw.githubusercontent.com/VforVeselov/MyNew/dev/src/main/resources/asanas.json", function( data ) {
         var items = [];
         $.each( data, function( key, val ) {
           items.push("<li class=\"ui-state-highlight list-group-item\" id='" + val.id + "'>"+

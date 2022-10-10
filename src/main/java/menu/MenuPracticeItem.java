@@ -12,4 +12,5 @@ public class MenuPracticeItem {
     public String name;
     public Integer[] asanas;
     public String desc;
+    public int asanaDelay;
 }

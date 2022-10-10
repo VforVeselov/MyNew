@@ -13,6 +13,11 @@ import java.util.List;
 public class Menu {
     private ObjectMapper mapper = new ObjectMapper();
 
+    /**
+     * Забирает данные из файла practices.json с практиками
+     * @return
+     * @throws IOException
+     */
     public InlineKeyboardMarkup menuBuilder() throws IOException {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
 
@@ -41,6 +46,11 @@ public class Menu {
             }
             i++;
         }
+        rowList.add(List.of(
+                InlineKeyboardButton.builder()
+                        .text("<---- Назад")
+                        .callbackData("back")
+                        .build()));
         inlineKeyboardMarkup.setKeyboard(rowList);
         return inlineKeyboardMarkup;
     }

@@ -53,11 +53,4 @@ public class DataController {
         return practiceList;
     }
 
-    public List<MenuPracticeItem> getPracticesFromJson() throws IOException {
-        return Arrays.asList(mapper.readValue(Paths.get("src/main/resources/practices.json").toFile(), MenuPracticeItem[].class));
-    }
-
-    public MenuPracticeItem getPracticeById(int id) throws IOException {
-        return Arrays.stream(mapper.readValue(Paths.get("src/main/resources/practices.json").toFile(), MenuPracticeItem[].class)).filter(e->e.id == id).findFirst().get();
-    }
 }
