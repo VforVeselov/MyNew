@@ -1,10 +1,11 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import menu.MenuPracticeItem;
 
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
-
+@Slf4j
 public class DataController {
 
     private Random random = new Random();
@@ -32,8 +33,12 @@ public class DataController {
         return asanas;
     }
 
-    public String getAsaaInfo(int id) throws IOException {
-        return getAsanas().stream().filter( c->c.id == id).findFirst().map(e->e.desc).get();
+    public String getAsanaInfo(int id) throws IOException {
+        if (getAsanas().stream().filter( c->c.id == id).findFirst().map(e->e.desc).get().isEmpty()) {
+            return "Именно " + getAsanas().stream().filter( c->c.id == id).findFirst().map(e->e.sanskrit).get();
+        } else {
+            return getAsanas().stream().filter(c -> c.id == id).findFirst().map(e -> e.desc).get();
+        }
     }
 
 

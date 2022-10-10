@@ -114,7 +114,7 @@ public class BotClass  extends TelegramLongPollingBot {
                 try {
                     Integer asanaId = null;
                     asanaId = Integer.parseInt(update.getCallbackQuery().getData().substring(2)); //обрезаем ra
-                    infoMessage.setText(dataController.getAsaaInfo(asanaId));
+                    infoMessage.setText(dataController.getAsanaInfo(asanaId));
 
                     Message response = execute(message);
                     // удаляем к херам
@@ -190,7 +190,10 @@ public class BotClass  extends TelegramLongPollingBot {
 
         });
         run.start();
+        log.trace("запущен тред {}",run.getId());
     }
+    //TODO STOP ALL PRACTICES
+    //создать метод, который по айди треба имени пользователя будет останавливать требуемый тред
 
     private void deleteMessage(Message response, Update update, int time) {
         Thread run = new Thread(() -> {

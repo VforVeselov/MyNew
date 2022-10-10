@@ -91,10 +91,843 @@
     "desc":"Также известна как «нижний упор» или «нижняя планка». Это асана, при выполнении которой тело напоминает посох: оно расположено параллельно полу, в одной линии от пяток до головы, упор идёт на кисти рук и носочки ног, локти согнуты и расположены под углом 90 градусов."
   },
   {
-    "id": 15,
+    "id": 5,
     "sanskrit": "Вирабхадрасана 1",
     "english": "Поза благого воина (Вирабхадры)",
     "img" : "https://www.oum.ru/upload/resize_cache/iblock/80c/706_470_1/80ccaf1476919b0b57c5ac9fee118c06.jpg",
     "desc":"Эта асана посвящена Вирабхадре, могучему герою, которого Шива сотворил из своих спутанных волос. Поза требует значительного напряжения."
+  },
+  {
+    "id": 15,
+    "sanskrit": "Агни стамбхасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/----------------_0q5hmfrd.png",
+    "desc": ""
+  },
+  {
+    "id": 16,
+    "sanskrit": "Ардха баддха падма пашчимоттанасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-----------------------------------.png",
+    "desc": ""
+  },
+  {
+    "id": 17,
+    "sanskrit": "Ардха матсиендрасана (вариация)",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-------------------------------_k7ta4h02.png",
+    "desc": ""
+  },
+  {
+    "id": 18,
+    "sanskrit": "Ардха матсиендрасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------------_miwpx4e5.png",
+    "desc": ""
+  },
+  {
+    "id": 19,
+    "sanskrit": "Ардха падма матсиендрасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------------------_17v6u9m5.png",
+    "desc": ""
+  },
+  {
+    "id": 20,
+    "sanskrit": "Баддха конасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/---------------_1_m5cg0pw6.png",
+    "desc": ""
+  },
+  {
+    "id": 21,
+    "sanskrit": "Ваджрасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/----------_och0z1o6.png",
+    "desc": ""
+  },
+  {
+    "id": 22,
+    "sanskrit": "Вамадевасена",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/------------_5yydi62y.png",
+    "desc": ""
+  },
+  {
+    "id": 23,
+    "sanskrit": "Вира паригхасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/----------------_100h90fq.png",
+    "desc": ""
+  },
+  {
+    "id": 24,
+    "sanskrit": "Вирасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------_6skpk3r0.png",
+    "desc": ""
+  },
+  {
+    "id": 25,
+    "sanskrit": "Вытяжение бедра (сидя)",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/----------------------.png",
+    "desc": ""
+  },
+  {
+    "id": 26,
+    "sanskrit": "Вытяжение бедра в эка пада раджа капотасане",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-------------------------------------------.png",
+    "desc": ""
+  },
+  {
+    "id": 27,
+    "sanskrit": "Вытяжение лежа (направление нога за голову)",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-------------------------------------------_y01w376z.png",
+    "desc": ""
+  },
+  {
+    "id": 28,
+    "sanskrit": "Вытяжение ягодичных мм",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/----------------------_275707pt.png",
+    "desc": ""
+  },
+  {
+    "id": 29,
+    "sanskrit": "Гомукха пашчиммотанасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/------------------------.png",
+    "desc": ""
+  },
+  {
+    "id": 30,
+    "sanskrit": "Гомукхасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-----------_zu91dr99.png",
+    "desc": ""
+  },
+  {
+    "id": 31,
+    "sanskrit": "Джану ширшасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/---------------_123zeexs.png",
+    "desc": ""
+  },
+  {
+    "id": 32,
+    "sanskrit": "Йоганидрасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-------------_71yp922n.png",
+    "desc": ""
+  },
+  {
+    "id": 33,
+    "sanskrit": "Краунчасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-----------_n68kjjzv.png",
+    "desc": ""
+  },
+  {
+    "id": 34,
+    "sanskrit": "Марджариасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-------------_j9asrk7h.png",
+    "desc": ""
+  },
+  {
+    "id": 35,
+    "sanskrit": "Маричиасана А",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-------------_3fu88kf4.png",
+    "desc": ""
+  },
+  {
+    "id": 36,
+    "sanskrit": "Падмасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/---------.png",
+    "desc": ""
+  },
+  {
+    "id": 37,
+    "sanskrit": "Паривритта джану ширшасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------------------_8sad3l3x.png",
+    "desc": ""
+  },
+  {
+    "id": 38,
+    "sanskrit": "Паривритта краунчасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/----------------------_csyo078o.png",
+    "desc": ""
+  },
+  {
+    "id": 39,
+    "sanskrit": "Паршва упавиштха конасана I",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------------------i.png",
+    "desc": ""
+  },
+  {
+    "id": 40,
+    "sanskrit": "Паршва упавиштха конасана II",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------------------ii.png",
+    "desc": ""
+  },
+  {
+    "id": 41,
+    "sanskrit": "Паршва шашанкасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/------------------_8167f0h7.png",
+    "desc": ""
+  },
+  {
+    "id": 42,
+    "sanskrit": "Пашчиммотанасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/----------------_d7rri5z7.png",
+    "desc": ""
+  },
+  {
+    "id": 43,
+    "sanskrit": "Самаконасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/------------_6t1s71ug.png",
+    "desc": ""
+  },
+  {
+    "id": 44,
+    "sanskrit": "Сукхасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/---------_37pc9vn3.png",
+    "desc": ""
+  },
+  {
+    "id": 45,
+    "sanskrit": "Супта вирасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------_a1pdxiwj.png",
+    "desc": ""
+  },
+  {
+    "id": 46,
+    "sanskrit": "Супта падангуштхасана I",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/----------------------i.png",
+    "desc": ""
+  },
+  {
+    "id": 47,
+    "sanskrit": "Супта падангуштхасана II",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/----------------------ii.png",
+    "desc": ""
+  },
+  {
+    "id": 48,
+    "sanskrit": "Супта падангуштхасана III",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/----------------------iii.png",
+    "desc": ""
+  },
+  {
+    "id": 49,
+    "sanskrit": "Трианг мукхаикапада пашчиммотанасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/------------------------------------_34ikusv3.png",
+    "desc": ""
+  },
+  {
+    "id": 50,
+    "sanskrit": "Убхаая падангуштхасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/----------------------_qa3kxgmi.png",
+    "desc": ""
+  },
+  {
+    "id": 51,
+    "sanskrit": "Упавиштха конасана ",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/------------------_3e0766cg.png",
+    "desc": ""
+  },
+  {
+    "id": 52,
+    "sanskrit": "Хануманасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/------------_8z2vo50z.png",
+    "desc": ""
+  },
+  {
+    "id": 53,
+    "sanskrit": "Шашанкасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-----------_o42vma39.png",
+    "desc": ""
+  },
+  {
+    "id": 54,
+    "sanskrit": "Эка пада ширшасана (лежа)",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-------------------------.png",
+    "desc": ""
+  },
+  {
+    "id": 55,
+    "sanskrit": "Аштавакрасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-------------_s11q54bq.png",
+    "desc": ""
+  },
+  {
+    "id": 56,
+    "sanskrit": "Бакасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------_1_046bt6dt.png",
+    "desc": ""
+  },
+  {
+    "id": 57,
+    "sanskrit": "Бхуджапидасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------_1.png",
+    "desc": ""
+  },
+  {
+    "id": 58,
+    "sanskrit": "Дандасана (баланс)",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/------------------_1_1c7pf82d.png",
+    "desc": ""
+  },
+  {
+    "id": 59,
+    "sanskrit": "Куккутасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-----------.png",
+    "desc": ""
+  },
+  {
+    "id": 60,
+    "sanskrit": "Маюрасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/---------_1_wn7qci5c.png",
+    "desc": ""
+  },
+  {
+    "id": 61,
+    "sanskrit": "Паривритта урдхва йогадандасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-------------------------------.png",
+    "desc": ""
+  },
+  {
+    "id": 62,
+    "sanskrit": "Паршва бакасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/---------------_1_g781qb34.png",
+    "desc": ""
+  },
+  {
+    "id": 63,
+    "sanskrit": "Титибхасана (вариация)",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/----------------------_1_9d7eno7m.png",
+    "desc": ""
+  },
+  {
+    "id": 64,
+    "sanskrit": "Титибхасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-----------_1_078t9tv8.png",
+    "desc": ""
+  },
+  {
+    "id": 65,
+    "sanskrit": "Урдхва куккутасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/------------------_1_t1wt82e8.png",
+    "desc": ""
+  },
+  {
+    "id": 66,
+    "sanskrit": "Эка бхуджасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------_1_1j9239yf.png",
+    "desc": ""
+  },
+  {
+    "id": 67,
+    "sanskrit": "Эка пада бакасана I",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/------------------i_1.png",
+    "desc": ""
+  },
+  {
+    "id": 68,
+    "sanskrit": "Эка пада бакасана II",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/------------------ii_1.png",
+    "desc": ""
+  },
+  {
+    "id": 69,
+    "sanskrit": "Эка пада галавасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-------------------_1_ykb8764o.png",
+    "desc": ""
+  },
+  {
+    "id": 70,
+    "sanskrit": "Эка пада каундиниасана I",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-----------------------i_1.png",
+    "desc": ""
+  },
+  {
+    "id": 71,
+    "sanskrit": "Эка пада каундиниасана II",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-----------------------ii_1.png",
+    "desc": ""
+  },
+  {
+    "id": 72,
+    "sanskrit": "Эка хаста бхуджасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------------_1_sldlbiwx.png",
+    "desc": ""
+  },
+  {
+    "id": 73,
+    "sanskrit": "Анджанейасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-------------_1_a5x9246r.png",
+    "desc": ""
+  },
+  {
+    "id": 74,
+    "sanskrit": "Ардха бхуджангасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-------------------_1_79891y9r.png",
+    "desc": ""
+  },
+  {
+    "id": 75,
+    "sanskrit": "Ардха дханурасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-----------------_85956dca.png",
+    "desc": ""
+  },
+  {
+    "id": 76,
+    "sanskrit": "Аштанга намаскара",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-----------------_1_n99556ka.png",
+    "desc": ""
+  },
+  {
+    "id": 77,
+    "sanskrit": "Бхекасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/---------_39a1v3wj.png",
+    "desc": ""
+  },
+  {
+    "id": 78,
+    "sanskrit": "Бхуджангасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-------------_1_7f16j067.png",
+    "desc": ""
+  },
+  {
+    "id": 79,
+    "sanskrit": "Дханурасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-----------_c0c7ea3s.png",
+    "desc": ""
+  },
+  {
+    "id": 80,
+    "sanskrit": "Железный мост",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-------------_1_p8hv1ygl.png",
+    "desc": ""
+  },
+  {
+    "id": 81,
+    "sanskrit": "Капотасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/----------_1_zy55d0p4.png",
+    "desc": ""
+  },
+  {
+    "id": 82,
+    "sanskrit": "Матсьясана (вариация)",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/---------------------_1_b561o2t8.png",
+    "desc": ""
+  },
+  {
+    "id": 83,
+    "sanskrit": "Матсьясана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/----------_7gw868ty.png",
+    "desc": ""
+  },
+  {
+    "id": 84,
+    "sanskrit": "Падангуштха дханурасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-----------------------_1.png",
+    "desc": ""
+  },
+  {
+    "id": 85,
+    "sanskrit": "Пурвоттанасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------_8tb5o3lz.png",
+    "desc": ""
+  },
+  {
+    "id": 86,
+    "sanskrit": "Раскрытие плечевых суставов (лежа)",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/----------------------------------_1.png",
+    "desc": ""
+  },
+  {
+    "id": 87,
+    "sanskrit": "Сету бандха сарвангасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/------------------------_93d19p53.png",
+    "desc": ""
+  },
+  {
+    "id": 88,
+    "sanskrit": "Сукха гхерандасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/------------------_1_3o265h3s.png",
+    "desc": ""
+  },
+  {
+    "id": 89,
+    "sanskrit": "Урдхва дханурасана (вариация)",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-----------------------------_s4f73h06.png",
+    "desc": ""
+  },
+  {
+    "id": 90,
+    "sanskrit": "Урдхва дханурасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/------------------_1_cpi28zvb.png",
+    "desc": ""
+  },
+  {
+    "id": 91,
+    "sanskrit": "Урдхва мукха шванасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/----------------------_7ah274eb.png",
+    "desc": ""
+  },
+  {
+    "id": 92,
+    "sanskrit": "Уттана падасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/---------------_1_86k8e62k.png",
+    "desc": ""
+  },
+  {
+    "id": 93,
+    "sanskrit": "Уштрасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/---------_pb38b16k.png",
+    "desc": ""
+  },
+  {
+    "id": 94,
+    "sanskrit": "Шалабхасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-----------_1_92m3p847.png",
+    "desc": ""
+  },
+  {
+    "id": 95,
+    "sanskrit": "Эка пада урдхва дханурасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------------_1_r643nj77.png",
+    "desc": ""
+  },
+  {
+    "id": 96,
+    "sanskrit": "Эка пада раджа капотасана (вариация)",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/------------------------------------.png",
+    "desc": ""
+  },
+  {
+    "id": 97,
+    "sanskrit": "Эка пада раджа капотасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-------------------------_uh59yow1.png",
+    "desc": ""
+  },
+  {
+    "id": 98,
+    "sanskrit": "Ардха навасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------_4yjva88l.png",
+    "desc": ""
+  },
+  {
+    "id": 99,
+    "sanskrit": "Баланс на боку (вариация)",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-------------------------_1_c3jvy314.png",
+    "desc": ""
+  },
+  {
+    "id": 100,
+    "sanskrit": "Баланс на боку",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------_5ol340zv.png",
+    "desc": ""
+  },
+  {
+    "id": 101,
+    "sanskrit": "Боковой упор",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/------------_1.png",
+    "desc": ""
+  },
+  {
+    "id": 102,
+    "sanskrit": "Васиштхасана (вариация 1)",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-----------------------1-.png",
+    "desc": ""
+  },
+  {
+    "id": 103,
+    "sanskrit": "Васиштхасана (вариация 2)",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-----------------------2-_1.png",
+    "desc": ""
+  },
+  {
+    "id": 104,
+    "sanskrit": "Васиштхасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/------------.png",
+    "desc": ""
+  },
+  {
+    "id": 105,
+    "sanskrit": "Вишвамитрасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------_9z5z6hte.png",
+    "desc": ""
+  },
+  {
+    "id": 106,
+    "sanskrit": "Дандасана (вариация)",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------------_1_rk4z57ce.png",
+    "desc": ""
+  },
+  {
+    "id": 107,
+    "sanskrit": "Дви пада питха",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------_ua5o092n.png",
+    "desc": ""
+  },
+  {
+    "id": 108,
+    "sanskrit": "Джатхара паривартанасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/------------------------_1_e260o6a8.png",
+    "desc": ""
+  },
+  {
+    "id": 109,
+    "sanskrit": "Лоласана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------_1_866cm1i8.png",
+    "desc": ""
+  },
+  {
+    "id": 110,
+    "sanskrit": "Парипурна навасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/------------------_1_50rdjrr8.png",
+    "desc": ""
+  },
+  {
+    "id": 111,
+    "sanskrit": "Толасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------_1_9g7rxjmg.png",
+    "desc": ""
+  },
+  {
+    "id": 112,
+    "sanskrit": "Урдхва чатуранга дандасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------------------.png",
+    "desc": ""
+  },
+  {
+    "id": 113,
+    "sanskrit": "Чатуранга дандасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-------------------_1_j0tss3d2.png",
+    "desc": ""
+  },
+  {
+    "id": 114,
+    "sanskrit": "Адхо мукха врикшасана (вариация)",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------------------------.png",
+    "desc": ""
+  },
+  {
+    "id": 115,
+    "sanskrit": "Адхо мукха врикшасана (уголок)",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/------------------------------.png",
+    "desc": ""
+  },
+  {
+    "id": 116,
+    "sanskrit": "Адхо мукха врикшасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/---------------------.png",
+    "desc": ""
+  },
+  {
+    "id": 117,
+    "sanskrit": "Адхо мукха шванасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------------_2.png",
+    "desc": ""
+  },
+  {
+    "id": 118,
+    "sanskrit": "Випарита карани мудра",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/---------------------_2zpi8b8q.png",
+    "desc": ""
+  },
+  {
+    "id": 119,
+    "sanskrit": "Випарита карани",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/---------------_61sv3tq0.png",
+    "desc": ""
+  },
+  {
+    "id": 120,
+    "sanskrit": "Карна пидасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------.png",
+    "desc": ""
+  },
+  {
+    "id": 121,
+    "sanskrit": "Пинча маюрасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/---------------_3prw22yz.png",
+    "desc": ""
+  },
+  {
+    "id": 122,
+    "sanskrit": "Саламба сарвангасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------------_l1uk7403.png",
+    "desc": ""
+  },
+  {
+    "id": 123,
+    "sanskrit": "Саламба ширшасана (вариация)",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/----------------------------.png",
+    "desc": ""
+  },
+  {
+    "id": 124,
+    "sanskrit": "Саламба ширшасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-----------------.png",
+    "desc": ""
+  },
+  {
+    "id": 125,
+    "sanskrit": "Супта баддха конасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/---------------------_228zbd57.png",
+    "desc": ""
+  },
+  {
+    "id": 126,
+    "sanskrit": "Супта конасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------------_y68ayq86.png",
+    "desc": ""
+  },
+  {
+    "id": 127,
+    "sanskrit": "Урдхва мукха пашчиммотанасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/-----------------------------.png",
+    "desc": ""
+  },
+  {
+    "id": 128,
+    "sanskrit": "Урдхва падмасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/----------------_1_3v9omjrb.png",
+    "desc": ""
+  },
+  {
+    "id": 129,
+    "sanskrit": "Халасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------.png",
+    "desc": ""
+  },
+  {
+    "id": 130,
+    "sanskrit": "Накрасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/---------_3kk2w780.png",
+    "desc": ""
+  },
+  {
+    "id": 131,
+    "sanskrit": "Супта баддха конасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/---------------------_2.png",
+    "desc": ""
+  },
+  {
+    "id": 132,
+    "sanskrit": "Уттхита баласана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/----------------_1_40n73993.png",
+    "desc": ""
+  },
+  {
+    "id": 133,
+    "sanskrit": "Шавасана",
+    "english": "",
+    "img" : "http://www.in-yoga.ru/images/--------_ekm82k33.png",
+    "desc": ""
   }
 ]
