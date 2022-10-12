@@ -29,18 +29,18 @@ public class Menu {
                 rowList.add(List.of(
                         InlineKeyboardButton.builder()
                                 .text(items.get(i).name)
-                                .callbackData("practice-"+items.get(i).id)
+                                .callbackData("practice-" + items.get(i).id)
                                 .build(),
                         InlineKeyboardButton.builder()
-                                .text(items.get(i+1).name)
-                                .callbackData("practice-"+items.get(i+1).id)
+                                .text(items.get(i + 1).name)
+                                .callbackData("practice-" + items.get(i + 1).id)
                                 .build()
                 ));
             } else {
                 rowList.add(List.of(
                         InlineKeyboardButton.builder()
                                 .text(items.get(i).name)
-                                .callbackData("practice-"+items.get(i).id)
+                                .callbackData("practice-" + items.get(i).id)
                                 .build()
                 ));
             }
@@ -60,6 +60,6 @@ public class Menu {
     }
 
     public MenuPracticeItem getPracticeById(int id) throws IOException {
-        return Arrays.stream(mapper.readValue(Paths.get("src/main/resources/practices.json").toFile(), MenuPracticeItem[].class)).filter(e->e.id == id).findFirst().get();
+        return Arrays.stream(mapper.readValue(Paths.get("src/main/resources/practices.json").toFile(), MenuPracticeItem[].class)).filter(e -> e.id == id).findFirst().get();
     }
 }

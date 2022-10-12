@@ -1,14 +1,15 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import menu.MenuPracticeItem;
 
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
+
 @Slf4j
 public class DataController {
 
     private Random random = new Random();
+
     private ObjectMapper mapper = new ObjectMapper();
 
     public List<Asana> getAsanas() throws IOException {
@@ -20,7 +21,7 @@ public class DataController {
     public Map<Integer, Asana> getAsanasForQuiz() throws IOException {
 
         List<Asana> asanaList = this.getAsanas();
-        Map<Integer, Asana> asanas = new HashMap<>();// новый лист с 4  уникальными значениями
+        Map<Integer, Asana> asanas = new HashMap<>(); // новый лист с 4 уникальными значениями
         int i = 0;
         while (i < 4) {
             Asana a = asanaList.get(this.random.nextInt(asanaList.size()));
@@ -34,18 +35,15 @@ public class DataController {
     }
 
     public String getAsanaInfo(int id) throws IOException {
-        if (getAsanas().stream().filter( c->c.id == id).findFirst().map(e->e.desc).get().isEmpty()) {
-            return "Именно " + getAsanas().stream().filter( c->c.id == id).findFirst().map(e->e.sanskrit).get();
+        if (getAsanas().stream().filter(c -> c.id == id).findFirst().map(e -> e.desc).get().isEmpty()) {
+            return "Именно " + getAsanas().stream().filter(c -> c.id == id).findFirst().map(e -> e.sanskrit).get();
         } else {
             return getAsanas().stream().filter(c -> c.id == id).findFirst().map(e -> e.desc).get();
         }
     }
 
-
     public List<Asana> getPractice(Integer[] asanasID) throws IOException {
         List<Asana> asanas = this.getAsanas();
-                //охуеть. это было прямо взрыв мозга ) но это не то что нужно) ахахах
-                //asanas.stream().filter(e -> Arrays.stream(asanasID).anyMatch(k -> k.equals(e.id))).collect(Collectors.toList()).stream().map(e->e.sanskrit).forEach(System.out::println);
         List<Asana> practiceList = new ArrayList<>();
         for (Integer aId : asanasID) {
             practiceList.add(asanas.stream().filter(e -> e.id == aId).findFirst().get());

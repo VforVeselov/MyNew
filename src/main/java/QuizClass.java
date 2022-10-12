@@ -3,13 +3,11 @@ import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
 
 public class QuizClass {
     public QuizClass() {
@@ -33,7 +31,7 @@ public class QuizClass {
                 if (i == rightAnswer) {
                     image = asanaMap.get(i).img;
                     trueAnswer = asanaMap.get(i).id;
-                    inlineKeyboardButton.setCallbackData(String.valueOf("ra"+asanaMap.get(i).id));
+                    inlineKeyboardButton.setCallbackData(String.valueOf("ra" + asanaMap.get(i).id));
                 } else {
                     inlineKeyboardButton.setCallbackData("-");
                 }
@@ -42,7 +40,6 @@ public class QuizClass {
                 } else {
                     inlineKeyboardRow2.add(inlineKeyboardButton);
                 }
-
             }
 
             List<List<InlineKeyboardButton>> rowList = new ArrayList<>();

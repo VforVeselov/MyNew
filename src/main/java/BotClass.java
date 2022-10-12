@@ -11,20 +11,25 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.beans.XMLEncoder;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
 public class BotClass  extends TelegramLongPollingBot {
-
     private final DataController dataController = new DataController();
-    private Random random = new Random();
-    private SendMessage message = new SendMessage();
-    private SendPhoto sendPhoto = new SendPhoto();
-    private Map<String, Long> userThreads = new HashMap<>();
 
+    private final Random random = new Random();
+
+    private final SendMessage message = new SendMessage();
+
+    private final SendPhoto sendPhoto = new SendPhoto();
+
+    private final Map<String, Long> userThreads = new HashMap<>();
 
     @Override
     public String getBotUsername() {
@@ -38,7 +43,6 @@ public class BotClass  extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-
 
         // Отлавливаем все сообщения
         if (update.hasMessage() && update.getMessage().hasText()) {
@@ -54,18 +58,18 @@ public class BotClass  extends TelegramLongPollingBot {
             }
             // memorize
             if (update.getMessage().getText().equals("/memorize")) {
-                log.info("User {} запустил memorize",update.getMessage().getFrom().getUserName());
+                log.info("User {} запустил memorize", update.getMessage().getFrom().getUserName());
                 QuizClass quizClass = new QuizClass();
-                quizClass.sendQuestion(sendPhoto,dataController,update.getMessage().getChatId());
-                    try {
-                        execute(sendPhoto);
-                    } catch (TelegramApiException e) {
-                        e.printStackTrace();
-                    }
+                quizClass.sendQuestion(sendPhoto, dataController, update.getMessage().getChatId());
+                try {
+                    execute(sendPhoto);
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
             }
             // practice
             if (update.getMessage().getText().equals("/practice")) {
-                log.trace("User {} запустил practice",update.getMessage().getFrom().getUserName());
+                log.trace("User {} запустил practice", update.getMessage().getFrom().getUserName());
                 //TODO надо разобаться почему выскакиевает сообщение когда ненадою может нужно очищать message?
                 message.setText("Выбери практику");
                 try {
@@ -79,15 +83,12 @@ public class BotClass  extends TelegramLongPollingBot {
             if (update.getMessage().getText().equals("/stop")) {
                 stopPractice(update.getMessage().getFrom().getUserName());
             }
-
-        }
-        // Отлавливаем коллбеки из клаиауры
-        else if (update.hasCallbackQuery()) {
+        } else if (update.hasCallbackQuery()) {
             message.setChatId(update.getCallbackQuery().getMessage().getChatId().toString());
             // если нужно продолжить квиз
             if (update.getCallbackQuery().getData().equals("yestomorequiz")) {
                 QuizClass quizClass = new QuizClass();
-                quizClass.sendQuestion(sendPhoto,dataController,update.getCallbackQuery().getMessage().getChatId());
+                quizClass.sendQuestion(sendPhoto, dataController, update.getCallbackQuery().getMessage().getChatId());
                     try {
                         execute(sendPhoto);
                     } catch (TelegramApiException e) {
@@ -108,17 +109,21 @@ public class BotClass  extends TelegramLongPollingBot {
             }
             // Если ответ правильный ra{id}
             if (update.getCallbackQuery().getData().startsWith("ra")) {
-                message.setChatId(update.getCallbackQuery().getMessage().getChatId());
-                message.setText(Settings.rightAnswer.get(random.nextInt(Settings.rightAnswer.size()))); // один из вариантов верного ответа
+                //message.setChatId(update.getCallbackQuery().getMessage().getChatId());
+                // один из вариантов верного ответа
+                SendMessage rightAnswer = SendMessage.builder()
+                                        .text(Settings.rightAnswer.get(random.nextInt(Settings.rightAnswer.size())))
+                                        .chatId(update.getCallbackQuery().getMessage().getChatId())
+                                        .build();
 
                 SendMessage infoMessage = new SendMessage();
                 infoMessage.setChatId(update.getCallbackQuery().getMessage().getChatId());
                 try {
-                    Integer asanaId = null;
-                    asanaId = Integer.parseInt(update.getCallbackQuery().getData().substring(2)); //обрезаем ra
+                    int asanaId;
+                    asanaId = Integer.parseInt(update.getCallbackQuery().getData().substring(2)); //обрезаемra
                     infoMessage.setText(dataController.getAsanaInfo(asanaId));
 
-                    Message response = execute(message);
+                    Message response = execute(rightAnswer);
                     // удаляем к херам
                     this.deleteMessage(response, update, 1000);
 
@@ -142,7 +147,7 @@ public class BotClass  extends TelegramLongPollingBot {
                                             )
                                             .build()
                             ),
-                            update, 7000);
+                            update, 10000);
 
                 } catch (TelegramApiException | NumberFormatException e) {
                     e.printStackTrace();
@@ -157,24 +162,24 @@ public class BotClass  extends TelegramLongPollingBot {
                 Menu menu = new Menu();
                 try {
                     List<Asana> practiceList = dataController.getPractice(menu.getPracticeById(practiceId).asanas);
-                    startPractice(practiceList, update.getCallbackQuery().getMessage().getChatId(), update.getCallbackQuery().getFrom().getUserName(),3000);
+                    startPractice(practiceList,
+                                    update.getCallbackQuery().getMessage().getChatId(),
+                                    update.getCallbackQuery().getFrom().getUserName(),
+                               3000);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
 
             }
         }
-
-
     }
 
-    private void startPractice(List<Asana> asanaList,Long chatId, String tgUser, int time) {
+    private void startPractice(List<Asana> asanaList, Long chatId, String tgUser, int time) {
         Thread run = new Thread(() -> {
             try {
-                log.trace("Программа {} ", asanaList.stream().map(e -> e.id).collect(Collectors.toList()).toString());
+                log.trace("Программа {} ", asanaList.stream().map(e -> e.id).collect(Collectors.toList()));
                 SendMessage practiceMessage = new SendMessage();
                 SendPhoto practicePhoto = new SendPhoto();
-
 
                 practiceMessage.setChatId(chatId);
                 practicePhoto.setChatId(chatId);
@@ -186,15 +191,18 @@ public class BotClass  extends TelegramLongPollingBot {
                     execute(practiceMessage);
                     Thread.sleep(time);
                 }
-            } catch (InterruptedException | TelegramApiException e) {
+            } catch (TelegramApiException e) {
                 throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                log.info("Тред прерван: {}", e.getMessage());
             }
 
         });
         run.start();
         userThreads.put(tgUser, run.getId());
-        log.trace("запущен тред {}",run.getId());
+        log.trace("запущен тред {}", run.getId());
     }
+
     //TODO STOP ALL PRACTICES
     //создать метод, который по айди треда имени пользователя будет останавливать требуемый тред
     private void stopPractice(String tgUser) {
@@ -206,14 +214,12 @@ public class BotClass  extends TelegramLongPollingBot {
             for (Thread thread : setOfThread) {
                 if (thread.getId() == userThreads.get(tgUser)) {
                     thread.interrupt();
-                    log.trace("Поток остановлен id {}",thread.getId());
+                    log.trace("Поток остановлен id {}", thread.getId());
                 }
             }
         }
-
-        //System.out.println(Thread.getAllStackTraces().keySet().stream().map(e->e.getId()).collect(Collectors.toList()).toString());
-
     }
+
     private void deleteMessage(Message response, Update update, int time) {
         Thread run = new Thread(() -> {
             try {
