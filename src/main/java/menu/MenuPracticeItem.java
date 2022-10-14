@@ -13,4 +13,5 @@ public class MenuPracticeItem {
     public Integer[] asanas;
     public String desc;
     public int asanaDelay;
+    public int parentId;
 }

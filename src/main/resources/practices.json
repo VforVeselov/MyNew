@@ -2,29 +2,65 @@
   {
     "id": 0,
     "name": "Сурья намаскар А",
-    "asanas": [1,2,3,4],
+    "asanas": [],
     "desc": "Самая простая сурья",
-    "asanaDelay": 5000
+    "asanaDelay": 5000,
+    "parentId": -1
   },
   {
     "id": 1,
     "name": "Сурья намаскар B",
     "asanas": [1,2,3,4,5,5,5],
     "desc": "Самая простая сурья B",
-    "asanaDelay": 5000
+    "asanaDelay": 5000,
+    "parentId": -1
   },
   {
     "id": 2,
     "name": "Сурья намаскар C",
     "asanas": [1,2,3,4],
     "desc": "Самая простая сурья",
-    "asanaDelay": 5000
+    "asanaDelay": 5000,
+    "parentId": -1
   },
   {
     "id": 3,
     "name": "Сурья намаскар D",
     "asanas": [1,2,3,4,5,5,5],
     "desc": "Самая простая сурья B",
-    "asanaDelay": 5000
+    "asanaDelay": 5000,
+    "parentId": -1
+  },
+  {
+    "id": 4,
+    "name": "30 min",
+    "asanas": [1,2,3,4,5,5,5],
+    "desc": "Самая простая сурья B",
+    "asanaDelay": 5000,
+    "parentId": 0
+  },
+  {
+    "id": 5,
+    "name": "60 min",
+    "asanas": [1,2,3,4,5,5,5],
+    "desc": "Самая простая сурья B",
+    "asanaDelay": 5000,
+    "parentId": 0
+  },
+  {
+    "id": 6,
+    "name": "90 min",
+    "asanas": [1,2,3,4,5,5,5],
+    "desc": "Самая простая сурья B",
+    "asanaDelay": 5000,
+    "parentId": 0
+  },
+  {
+    "id": 7,
+    "name": "120 min",
+    "asanas": [1,2,3,4,5,5,5],
+    "desc": "Самая простая сурья B",
+    "asanaDelay": 5000,
+    "parentId": 0
   }
 ]

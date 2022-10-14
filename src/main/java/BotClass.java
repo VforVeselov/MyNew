@@ -4,6 +4,7 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -70,10 +71,9 @@ public class BotClass  extends TelegramLongPollingBot {
             // practice
             if (update.getMessage().getText().equals("/practice")) {
                 log.trace("User {} запустил practice", update.getMessage().getFrom().getUserName());
-                //TODO надо разобаться почему выскакиевает сообщение когда ненадою может нужно очищать message?
                 message.setText("Выбери практику");
                 try {
-                    message.setReplyMarkup(new Menu().menuBuilder());
+                    message.setReplyMarkup(new Menu().menuBuilder(-1));
                     execute(message);
                 } catch (IOException | TelegramApiException e) {
                     throw new RuntimeException(e);
@@ -155,7 +155,7 @@ public class BotClass  extends TelegramLongPollingBot {
                     throw new RuntimeException(e);
                 }
             }
-
+            // Если вызвана конкретная практика
             if (update.getCallbackQuery().getData().startsWith("practice-")) {
                 log.info("Запущена практика номер: {}", update.getCallbackQuery().getData());
                 int practiceId = Integer.parseInt(update.getCallbackQuery().getData().substring(9));
@@ -170,6 +170,22 @@ public class BotClass  extends TelegramLongPollingBot {
                     throw new RuntimeException(e);
                 }
 
+            }
+            // Если сабменю
+            if (update.getCallbackQuery().getData().startsWith("submenu-")) {
+                int subMenuId = Integer.parseInt(update.getCallbackQuery().getData().substring(8));
+                try {
+                    execute(
+                            EditMessageText.builder()
+                                    .messageId(update.getCallbackQuery().getMessage().getMessageId())
+                                    .chatId(update.getCallbackQuery().getMessage().getChatId())
+                                    .text(update.getCallbackQuery().getMessage().getText())
+                                    .replyMarkup(new Menu().menuBuilder(subMenuId))
+                                    .build()
+                    );
+                } catch (IOException | TelegramApiException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }
@@ -203,13 +219,10 @@ public class BotClass  extends TelegramLongPollingBot {
         log.trace("запущен тред {}", run.getId());
     }
 
-    //TODO STOP ALL PRACTICES
-    //создать метод, который по айди треда имени пользователя будет останавливать требуемый тред
     private void stopPractice(String tgUser) {
         log.trace(userThreads.toString());
         if (userThreads.containsKey(tgUser)) {
             Set<Thread> setOfThread = Thread.getAllStackTraces().keySet();
-
             //Iterate over set to find yours
             for (Thread thread : setOfThread) {
                 if (thread.getId() == userThreads.get(tgUser)) {

@@ -9,48 +9,55 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Menu {
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     /**
      * Забирает данные из файла practices.json с практиками
-     * @return
+     * @return InlineKeyboardMarkup
      * @throws IOException
      */
-    public InlineKeyboardMarkup menuBuilder() throws IOException {
+    public InlineKeyboardMarkup menuBuilder(int parentId) throws IOException {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
 
         List<MenuPracticeItem> items = getPracticesFromJson();
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
+
+        items = items.stream().filter( e -> e.parentId == parentId ).collect(Collectors.toList());
+        String menuSalt = parentId == -1 ? "submenu-": "practice-";
 
         for (int i = 0; i < items.size(); i++) {
             if (i % 2 == 0) {
                 rowList.add(List.of(
                         InlineKeyboardButton.builder()
                                 .text(items.get(i).name)
-                                .callbackData("practice-" + items.get(i).id)
+                                .callbackData(menuSalt + items.get(i).id)
                                 .build(),
                         InlineKeyboardButton.builder()
                                 .text(items.get(i + 1).name)
-                                .callbackData("practice-" + items.get(i + 1).id)
+                                .callbackData(menuSalt + items.get(i + 1).id)
                                 .build()
                 ));
             } else {
                 rowList.add(List.of(
                         InlineKeyboardButton.builder()
                                 .text(items.get(i).name)
-                                .callbackData("practice-" + items.get(i).id)
+                                .callbackData(menuSalt + items.get(i).id)
                                 .build()
                 ));
             }
             i++;
         }
-        rowList.add(List.of(
-                InlineKeyboardButton.builder()
-                        .text("<---- Назад")
-                        .callbackData("back")
-                        .build()));
+        if (parentId > -1) {
+            int menuItem = parentId - 1;
+            rowList.add(List.of(
+                    InlineKeyboardButton.builder()
+                            .text("<---- Назад")
+                            .callbackData("submenu-" + menuItem)
+                            .build()));
+        }
         inlineKeyboardMarkup.setKeyboard(rowList);
         return inlineKeyboardMarkup;
     }
