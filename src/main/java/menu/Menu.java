@@ -20,13 +20,11 @@ public class Menu {
      * @throws IOException
      */
     public InlineKeyboardMarkup menuBuilder(int parentId) throws IOException {
-        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-
         List<MenuPracticeItem> items = getPracticesFromJson();
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
 
-        items = items.stream().filter( e -> e.parentId == parentId ).collect(Collectors.toList());
-        String menuSalt = parentId == -1 ? "submenu-": "practice-";
+        items = items.stream().filter(e -> e.parentId == parentId).collect(Collectors.toList());
+        String menuSalt = parentId == -1 ? "submenu-" : "practice-";
 
         for (int i = 0; i < items.size(); i++) {
             if (i % 2 == 0) {
@@ -58,8 +56,7 @@ public class Menu {
                             .callbackData("submenu-" + menuItem)
                             .build()));
         }
-        inlineKeyboardMarkup.setKeyboard(rowList);
-        return inlineKeyboardMarkup;
+        return InlineKeyboardMarkup.builder().keyboard(rowList).build();
     }
 
     public List<MenuPracticeItem> getPracticesFromJson() throws IOException {

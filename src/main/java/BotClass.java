@@ -1,5 +1,11 @@
-import com.vdurmont.emoji.Emoji;
 import com.vdurmont.emoji.EmojiParser;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import menu.Menu;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -10,18 +16,9 @@ import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageTe
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Slf4j
 public class BotClass  extends TelegramLongPollingBot {
@@ -34,7 +31,6 @@ public class BotClass  extends TelegramLongPollingBot {
     private final SendPhoto sendPhoto = new SendPhoto();
 
     private final Map<String, Long> userThreads = new HashMap<>();
-    private final User user = new User();
 
     @Override
     public String getBotUsername() {
@@ -48,7 +44,6 @@ public class BotClass  extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-
         // Отлавливаем все сообщения
         if (update.hasMessage() && update.getMessage().hasText()) {
             message.setChatId(update.getMessage().getChatId().toString());
@@ -114,11 +109,12 @@ public class BotClass  extends TelegramLongPollingBot {
             }
             // если НЕправильный ответ
             if (update.getCallbackQuery().getData().equals("-")) {
-                SendMessage newMessage = new SendMessage();
-                newMessage.setChatId(update.getCallbackQuery().getMessage().getChatId());
-                newMessage.setText(Settings.errorMessage);
                 try {
-                    Message response = execute(newMessage);
+                    SendMessage resp = SendMessage.builder().
+                                chatId(update.getCallbackQuery().getMessage().getChatId()).
+                                text(Settings.wrongMessage.get(random.nextInt(Settings.wrongMessage.size()))).
+                                build();
+                    Message response = execute(resp);
                     this.deleteMessage(response, update, 1000);
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
@@ -126,7 +122,6 @@ public class BotClass  extends TelegramLongPollingBot {
             }
             // Если ответ правильный ra{id}
             if (update.getCallbackQuery().getData().startsWith("ra")) {
-                //message.setChatId(update.getCallbackQuery().getMessage().getChatId());
                 // один из вариантов верного ответа
                 SendMessage rightAnswer = SendMessage.builder()
                                         .text(Settings.rightAnswer.get(random.nextInt(Settings.rightAnswer.size())))
@@ -136,8 +131,8 @@ public class BotClass  extends TelegramLongPollingBot {
                 SendMessage infoMessage = new SendMessage();
                 infoMessage.setChatId(update.getCallbackQuery().getMessage().getChatId());
                 try {
-                    int asanaId;
-                    asanaId = Integer.parseInt(update.getCallbackQuery().getData().substring(2)); //обрезаемra
+                    int asanaId = Integer.parseInt(update.getCallbackQuery().getData().substring(2)); //обрезаемra
+
                     infoMessage.setText(dataController.getAsanaInfo(asanaId));
 
                     Message response = execute(rightAnswer);
@@ -217,7 +212,7 @@ public class BotClass  extends TelegramLongPollingBot {
                 practiceMessage.setChatId(chatId);
                 practicePhoto.setChatId(chatId);
 
-                for (Asana asana: asanaList) {
+                for (Asana asana : asanaList) {
                     practiceMessage.setText(asana.sanskrit);
                     practicePhoto.setPhoto(new InputFile(asana.img));
                     execute(practicePhoto);
@@ -237,16 +232,17 @@ public class BotClass  extends TelegramLongPollingBot {
     }
 
     private void stopPractice(String tgUser) {
-        log.trace(userThreads.toString());
         if (userThreads.containsKey(tgUser)) {
             Set<Thread> setOfThread = Thread.getAllStackTraces().keySet();
-            //Iterate over set to find yours
             for (Thread thread : setOfThread) {
                 if (thread.getId() == userThreads.get(tgUser)) {
                     thread.interrupt();
+                    userThreads.clear();
                     log.trace("Поток остановлен id {}", thread.getId());
                 }
             }
+        } else {
+            log.trace("nothing to stop");
         }
     }
 

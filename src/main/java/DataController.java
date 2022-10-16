@@ -42,11 +42,11 @@ public class DataController {
         }
     }
 
-    public List<Asana> getPractice(Integer[] asanasID) throws IOException {
+    public List<Asana> getPractice(Integer[] asanasId) throws IOException {
         List<Asana> asanas = this.getAsanas();
         List<Asana> practiceList = new ArrayList<>();
-        for (Integer aId : asanasID) {
-                Asana asana = asanas.stream().filter(e -> e.id == aId).findFirst().orElse(null);
+        for (Integer asanaId : asanasId) {
+                Asana asana = asanas.stream().filter(e -> e.id == asanaId).findFirst().orElse(null);
                 if (asana != null) {
                     practiceList.add(asana);
                 }
