@@ -5,11 +5,12 @@ import java.util.List;
 /**
  *
  */
-public class User {
+public class UserExtend {
 
     private int id;
 
-    private int nickName;
+    private int userName;
 
     private List<UserPractice> practices;
+
 }

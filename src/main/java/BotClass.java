@@ -1,3 +1,5 @@
+import com.vdurmont.emoji.Emoji;
+import com.vdurmont.emoji.EmojiParser;
 import lombok.extern.slf4j.Slf4j;
 import menu.Menu;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -8,6 +10,7 @@ import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageTe
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -31,6 +34,7 @@ public class BotClass  extends TelegramLongPollingBot {
     private final SendPhoto sendPhoto = new SendPhoto();
 
     private final Map<String, Long> userThreads = new HashMap<>();
+    private final User user = new User();
 
     @Override
     public String getBotUsername() {
@@ -50,7 +54,10 @@ public class BotClass  extends TelegramLongPollingBot {
             message.setChatId(update.getMessage().getChatId().toString());
             // start
             if (update.getMessage().getText().equals("/start")) {
-                message.setText("Привет! \n Этот бот поможет тебе выучить асаны в форме теста \n жмякни /memorize и поехали!");
+                message.setText("Привет! \n Этот бот поможет тебе выучить асаны в форме теста " +
+                        "\n жмякни /memorize и поехали! \n" +
+                        "А еще он умеет стандартные практики \n" +
+                        "А потом будет уметь показывать тебе твои личные практики");
                 try {
                     execute(message);
                 } catch (TelegramApiException e) {
@@ -82,6 +89,16 @@ public class BotClass  extends TelegramLongPollingBot {
             //stop
             if (update.getMessage().getText().equals("/stop")) {
                 stopPractice(update.getMessage().getFrom().getUserName());
+            }
+
+            if (update.getMessage().getText().equals("/mypracticies")) {
+
+                message.setText(EmojiParser.parseToUnicode("Пока еще в разработке :woman_meditation:"));
+                try {
+                    execute(message);
+                } catch (TelegramApiException e) {
+                    throw new RuntimeException(e);
+                }
             }
         } else if (update.hasCallbackQuery()) {
             message.setChatId(update.getCallbackQuery().getMessage().getChatId().toString());
@@ -155,7 +172,7 @@ public class BotClass  extends TelegramLongPollingBot {
                     throw new RuntimeException(e);
                 }
             }
-            // Если вызвана конкретная практика
+            // Если вызвана конкретная стандартная практика
             if (update.getCallbackQuery().getData().startsWith("practice-")) {
                 log.info("Запущена практика номер: {}", update.getCallbackQuery().getData());
                 int practiceId = Integer.parseInt(update.getCallbackQuery().getData().substring(9));
@@ -248,4 +265,5 @@ public class BotClass  extends TelegramLongPollingBot {
         });
         run.start();
     }
+
 }
