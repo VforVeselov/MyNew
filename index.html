@@ -96,9 +96,7 @@
           var value = $(this).val();
           console.log(value)?.toLowerCase();
           $("#sortable1 li").filter(function() {
-              //var value = $(this).val();
-              console.log(value);
-              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+              $(this).toggle($(this).text()?.toLowerCase().indexOf(value) > -1)
           });
         });
 
