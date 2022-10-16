@@ -92,6 +92,16 @@
             $('#result').append(itms);
         });
 
+        $("#search").on("keyup", function() {
+          var value = $(this).val();
+          console.log(value)?.toLowerCase();
+          $("#sortable1 li").filter(function() {
+              //var value = $(this).val();
+              console.log(value);
+              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+
       });
   </script>
 </head>
@@ -103,6 +113,9 @@
 <div class="container text-center">
     <div class="row">
         <div class="col">
+          <div class="mb-3">
+            <input type="text" class="form-control" id="search" placeholder="быстрый поиск">
+          </div>
             <ul id="sortable1" class="connectedSortable list-group"></ul>
         </div>
         <div class="col" style="border: 1px;">

@@ -46,7 +46,10 @@ public class DataController {
         List<Asana> asanas = this.getAsanas();
         List<Asana> practiceList = new ArrayList<>();
         for (Integer aId : asanasID) {
-            practiceList.add(asanas.stream().filter(e -> e.id == aId).findFirst().get());
+                Asana asana = asanas.stream().filter(e -> e.id == aId).findFirst().orElse(null);
+                if (asana != null) {
+                    practiceList.add(asana);
+                }
         }
         return practiceList;
     }
