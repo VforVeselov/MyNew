@@ -16,8 +16,6 @@ public class QuizClass {
     public Integer sendQuestion(SendPhoto sendPhoto, DataController dataController, Long chatId) {
         try {
             Map<Integer, Asana> asanaMap = dataController.getAsanasForQuiz();
-
-            InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
             List<InlineKeyboardButton> inlineKeyboardRow1 = new ArrayList<>();
             List<InlineKeyboardButton> inlineKeyboardRow2 = new ArrayList<>();
 
@@ -45,10 +43,9 @@ public class QuizClass {
             List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
             rowList.add(inlineKeyboardRow1);
             rowList.add(inlineKeyboardRow2);
-            inlineKeyboardMarkup.setKeyboard(rowList);
 
             sendPhoto.setChatId(chatId);
-            sendPhoto.setReplyMarkup(inlineKeyboardMarkup);
+            sendPhoto.setReplyMarkup(InlineKeyboardMarkup.builder().keyboard(rowList).build());
             sendPhoto.setPhoto(new InputFile(image));
 
             return trueAnswer;

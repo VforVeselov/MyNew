@@ -60,10 +60,10 @@ public class Menu {
     }
 
     public List<MenuPracticeItem> getPracticesFromJson() throws IOException {
-        return Arrays.asList(mapper.readValue(Paths.get("src/main/resources/practices.json").toFile(), MenuPracticeItem[].class));
+        return Arrays.asList(mapper.readValue(this.getClass().getResource("practices.json"), MenuPracticeItem[].class));
     }
 
     public MenuPracticeItem getPracticeById(int id) throws IOException {
-        return Arrays.stream(mapper.readValue(Paths.get("src/main/resources/practices.json").toFile(), MenuPracticeItem[].class)).filter(e -> e.id == id).findFirst().get();
+        return Arrays.stream(mapper.readValue(this.getClass().getResource("practices.json"), MenuPracticeItem[].class)).filter(e -> e.id == id).findFirst().get();
     }
 }

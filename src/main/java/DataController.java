@@ -14,7 +14,8 @@ public class DataController {
 
     public List<Asana> getAsanas() throws IOException {
         //ObjectMapper mapper = new ObjectMapper();
-        return Arrays.asList(mapper.readValue(Paths.get("src/main/resources/asanas.json").toFile(), Asana[].class));
+        return Arrays.asList(mapper.readValue(this.getClass().getResource("asanas.json"), Asana[].class));
+        //return Arrays.asList(mapper.readValue(Paths.get("src/main/resources/asanas.json").toFile(), Asana[].class));
     }
 
     // <String(Img), Iteger(ID), Map<id, String(asana name)>>

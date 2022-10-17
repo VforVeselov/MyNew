@@ -1,5 +1,8 @@
 import lombok.Value;
-
+//
+//docker tag bodhi:latest nikiteveselovu/bodhi:latest
+// docker push nikiteveselovu/bodhi:latest
+//
 import java.util.Arrays;
 import java.util.List;
 @Value

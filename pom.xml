@@ -19,6 +19,26 @@
             <!-- Use the latest version whenever possible. -->
             <jackson.version>2.13.4</jackson.version>
     </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <to>docker.io/nikiteveselovu/bodhi</to>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <!-- Telegram API -->
@@ -64,6 +84,12 @@
             <artifactId>emoji-java</artifactId>
             <version>5.1.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.cloud.tools</groupId>
+            <artifactId>jib-maven-plugin</artifactId>
+            <version>3.3.0</version>
+        </dependency>
     </dependencies>
+
 
 </project>
