@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Asana management</title>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <style>
+        .container {
+            
+        }
+  .imgdiv {
+    float: left;
+    border-bottom: 1px #000 solid;
+  }
+  .imgdiv:not(:last-child):after {
+            content: '\027A1';
+    }
+  </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script>
+
+      $.getJSON( "https://raw.githubusercontent.com/VforVeselov/MyNew/dev/src/main/resources/asanas.json", function( data ) {
+        var items = [];
+        $.each( data, function( key, val ) {
+            let searchParams = new URLSearchParams(window.location.search);
+            if (searchParams.has("p")) {
+                let a = searchParams.get("p").split('');
+                a.forEach(function(value) {
+                    if (val.id == value) {
+                        items.push("<div class=\"imgdiv\"><img style=\"width: 12rem; padding-left: 5px;\" src=\""+ val.img +"\" /></div>");
+                    }
+                });
+            }
+
+          //items.push("<img style=\"width: 4rem; padding-left: 5px;\" src=\""+ val.img +"\" />");
+        });
+        
+        $('#practice').append(items);
+        
+        $('#sortable2').on('DOMSubtreeModified', function(event) {
+            var itms = [];
+            $('#result').empty();
+            $('#sortable2 li').each(function( key, val ) {
+                itms.push('<span>'+val.id+' ,</span>');
+            });
+            $('#result').append(itms);
+        });
+
+      });
+  </script>
+</head>
+<body>
+<div id="practice" style="height: 100px;">
+    <!-- Content here -->
+    
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</body>
+</html>
