@@ -13,7 +13,7 @@ public class DataController {
     private ObjectMapper mapper = new ObjectMapper();
 
     public List<Asana> getAsanas() throws IOException {
-        //ObjectMapper mapper = new ObjectMapper();
+        log.trace("readig asanas file: {}", this.getClass().getResource("asanas.json"));
         return Arrays.asList(mapper.readValue(this.getClass().getResource("asanas.json"), Asana[].class));
         //return Arrays.asList(mapper.readValue(Paths.get("src/main/resources/asanas.json").toFile(), Asana[].class));
     }

@@ -53,8 +53,5 @@ public class QuizClass {
             System.out.println("error" + e);
             throw new RuntimeException(e);
         }
-
     }
-
-
 }

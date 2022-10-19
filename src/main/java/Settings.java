@@ -12,7 +12,7 @@ public class Settings {
     // ./bashrc
     // export BOT_TOKEN={YOUR_BOT_TOKEN}
     //
-    public static String token = System.getenv("BOT_TOKEN").substring(10);
+    //public static String token = System.getenv("BOT_TOKEN").substring(10);
     public static List<String> rightAnswer = Arrays.asList("Круто!", "Молодец", "Умница");
     public static List<String> wrongMessage = Arrays.asList("Не-а", "Подумай еще", "Не верно", "Ну нет");
 }

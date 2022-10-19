@@ -1,6 +1,7 @@
 package menu;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
@@ -10,9 +11,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Slf4j
 public class Menu {
-    private final ObjectMapper mapper = new ObjectMapper();
+    private ObjectMapper mapper = new ObjectMapper();
 
     /**
      * Забирает данные из файла practices.json с практиками
@@ -59,11 +60,16 @@ public class Menu {
         return InlineKeyboardMarkup.builder().keyboard(rowList).build();
     }
 
-    public List<MenuPracticeItem> getPracticesFromJson() throws IOException {
-        return Arrays.asList(mapper.readValue(this.getClass().getResource("practices.json"), MenuPracticeItem[].class));
+    public List<MenuPracticeItem> getPracticesFromJson() {
+        try {
+            log.trace("read practices: {}", this.getClass().getClassLoader().getResource("practices.json"));
+            return Arrays.asList(mapper.readValue(this.getClass().getClassLoader().getResource("practices.json"), MenuPracticeItem[].class));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public MenuPracticeItem getPracticeById(int id) throws IOException {
-        return Arrays.stream(mapper.readValue(this.getClass().getResource("practices.json"), MenuPracticeItem[].class)).filter(e -> e.id == id).findFirst().get();
+        return Arrays.stream(mapper.readValue(this.getClass().getClassLoader().getResource("practices.json"), MenuPracticeItem[].class)).filter(e -> e.id == id).findFirst().get();
     }
 }

@@ -35,6 +35,14 @@
                 </executions>
                 <configuration>
                     <to>docker.io/nikiteveselovu/bodhi</to>
+                    <from>
+                        <platforms>
+                            <platform>
+                                <architecture>arm</architecture>
+                                <os>linux</os>
+                            </platform>
+                        </platforms>
+                    </from>
                 </configuration>
             </plugin>
         </plugins>
